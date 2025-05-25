@@ -1,0 +1,162 @@
+
+// extends class
+.rounded {
+    border-radius: 99px;
+}
+
+.slider-transition {
+    transition: background-color .8s cubic-bezier(0,.55,.45,1);
+}
+
+.bg-color-1 {
+    background-color: #01BDCC;
+}
+
+.bg-color-2 {
+    background-color: #FEBC18;
+}
+
+.bg-color-3 {
+    background-color: #E26687;
+}
+
+.bg-color-4 {
+    background-color: #76C766;
+}
+
+.bg-color-5 {
+    background-color: #4d42e8;
+}
+
+// parts class
+
+body {
+    @extend .slider-transition;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.navi {
+    &__wrap {
+        display: inline-block;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    &__inner{
+        @extend .rounded;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        background-color: black;
+        padding: 5px;
+        overflow: hidden;
+    
+        & button {
+            @extend .rounded;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: 0;
+            background-color: transparent;
+            background-image: none;
+            z-index: 1;
+            cursor: pointer;
+            // transition: all .2s ease-out;
+
+            &.inview {
+                pointer-events: none;
+                touch-action: none;
+            }
+
+            &::before {
+                content: attr(data-hover);
+                position: absolute;
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                opacity: 0;
+                @extend .rounded;
+                z-index: -1;
+                overflow: hidden;
+                transform: scale(0);
+                transform-origin: center;
+                transition: all .16s cubic-bezier(0, 0.73, 0.48, 1.27);
+            }
+            
+            &:nth-child(2) {
+                &::before {
+                    @extend .bg-color-1;
+                }
+            }
+            &:nth-child(3) {
+                &::before {
+                    @extend .bg-color-2;
+                }
+            }
+            &:nth-child(4) {
+                &::before {
+                    @extend .bg-color-3;
+                }
+            }
+            &:nth-child(5) {
+                &::before {
+                    @extend .bg-color-4;
+                }
+            }
+            &:nth-child(6) {
+                &::before {
+                    @extend .bg-color-5;
+                }
+            }
+    
+            & span {
+                color: white;
+            }
+        }
+    
+        & .circle {
+            @extend .rounded;
+            // @extend .slider-transition;
+            height: 40px;
+            width: 40px;
+            position: absolute;
+            transition: background-color .8s cubic-bezier(0,.55,.45,1), width .16s cubic-bezier(0,1,0,1);
+            // transform-origin: left;
+        }
+    }
+
+    &__btn {
+        // pointer-events: auto;
+        user-select: none;
+        -webkit-touch-callout: none;
+
+        &__text {
+            height: 40px;
+            width: 40px;
+            line-height: 40px;
+            text-align: center;
+        }
+    }
+}
+
+
+@media (hover: hover) {
+    .navi__inner button:hover::before {
+        transform:  scale(1);
+        opacity: 1;
+    }
+}

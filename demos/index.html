@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="bg-color-1">
+    <div class="navi__wrap">
+      <div class="navi__inner">
+        <span class="circle bg-color-1"></span>
+        <button data-index="0" class="inview">
+          <span class="navi__btn">
+            <span class="navi__btn__text">01</span>
+          </span>
+        </button>
+        <button data-index="1">
+          <span class="navi__btn">
+            <span class="navi__btn__text">02</span>
+          </span>
+        </button>
+        <button data-index="2">
+          <span class="navi__btn">
+            <span class="navi__btn__text">03</span>
+          </span>
+        </button>
+        <button data-index="3">
+          <span class="navi__btn">
+            <span class="navi__btn__text">04</span>
+          </span>
+        </button>
+        <button data-index="4">
+          <span class="navi__btn">
+            <span class="navi__btn__text">05</span>
+          </span>
+        </button>
+      </div>
+    </div>
+    <!-- Initialize CircleNavi -->
+    <script type="module">
+      import { CircleNavi } from "./index.js";
+      document.addEventListener("DOMContentLoaded", () => {
+        const settings = {
+          btn: ".navi__inner button",
+          target: ".circle",
+          bgArea: "body",
+          diameter: 40,
+          interval: 5,
+        };
+        try {
+          const menu = new CircleNavi(settings);
+          menu.addEvent();
+        }
+        catch (e) {
+          console.error(e);
+        }
+      });
+    </script>
+  </body>
+</html>

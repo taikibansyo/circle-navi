@@ -1,0 +1,36 @@
+{
+  "name": "circle-navi",
+  "version": "1.0.0",
+  "description": "A minimal navigation menu animation library",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./types/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taikibansyo/circle-navi.git"
+  },
+  "keywords": [],
+  "author": "taikibansyo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/taikibansyo/circle-navi/issues"
+  },
+  "homepage": "https://github.com/taikibansyo/circle-navi#readme",
+  "dependencies": {
+    "typescript": "^5.0.4"
+  }
+}

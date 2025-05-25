@@ -1,0 +1,116 @@
+.rounded, .navi__inner .circle, .navi__inner button::before, .navi__inner button, .navi__inner {
+  border-radius: 99px;
+}
+
+.slider-transition, body {
+  transition: background-color 0.8s cubic-bezier(0, 0.55, 0.45, 1);
+}
+
+.bg-color-1, .navi__inner button:nth-child(2)::before {
+  background-color: #01BDCC;
+}
+
+.bg-color-2, .navi__inner button:nth-child(3)::before {
+  background-color: #FEBC18;
+}
+
+.bg-color-3, .navi__inner button:nth-child(4)::before {
+  background-color: #E26687;
+}
+
+.bg-color-4, .navi__inner button:nth-child(5)::before {
+  background-color: #76C766;
+}
+
+.bg-color-5, .navi__inner button:nth-child(6)::before {
+  background-color: #4d42e8;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.navi__wrap {
+  display: inline-block;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  -webkit-touch-callout: none;
+}
+.navi__inner {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  background-color: black;
+  padding: 5px;
+  overflow: hidden;
+}
+.navi__inner button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background-color: transparent;
+  background-image: none;
+  z-index: 1;
+  cursor: pointer;
+}
+.navi__inner button.inview {
+  pointer-events: none;
+  touch-action: none;
+}
+.navi__inner button::before {
+  content: attr(data-hover);
+  position: absolute;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+  z-index: -1;
+  overflow: hidden;
+  transform: scale(0);
+  transform-origin: center;
+  transition: all 0.16s cubic-bezier(0, 0.73, 0.48, 1.27);
+}
+.navi__inner button span {
+  color: white;
+}
+.navi__inner .circle {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  transition: background-color 0.8s cubic-bezier(0, 0.55, 0.45, 1), width 0.16s cubic-bezier(0, 1, 0, 1);
+}
+.navi__btn {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  -webkit-touch-callout: none;
+}
+.navi__btn__text {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+
+@media (hover: hover) {
+  .navi__inner button:hover::before {
+    transform: scale(1);
+    opacity: 1;
+  }
+}/*# sourceMappingURL=style.css.map */
