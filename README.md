@@ -32,6 +32,13 @@ const menu = new CircleNavi(settings);
 menu.addEvent();
 ```
 
+```ts
+import { StaticNaviMenu } from 'circle-navi';
+
+const menu = new StaticNaviMenu({...});
+menu.addEvent();
+```
+
 In this configuration:
 
 - `btn` – CSS selector for the menu trigger buttons (e.g. all buttons inside the element with class `navi__inner`). Each button should have a data-index attribute (starting from 0) to identify its position.
@@ -101,6 +108,13 @@ const settings = {
 };
 
 const menu = new CircleNavi(settings);
+menu.addEvent();
+```
+
+```ts
+import { StaticNaviMenu } from 'circle-navi';
+
+const menu = new StaticNaviMenu({...});
 menu.addEvent();
 ```
 
