@@ -17,6 +17,10 @@ No special installation procedure is needed. You can simply download or copy the
 
 To use CircleNavi, include the script (as noted above) and then initialize the menu with your desired settings. For example, if your HTML has a series of navigation buttons and an indicator element, you can configure and instantiate the menu as follows:
 
+## 🔗 Demo
+
+[GitHub Pages](https://taikibansyo.github.io/circle-navi/)
+
 ```javascript
 // Configuration settings for CircleNavi
 const settings = {
@@ -30,6 +34,10 @@ const settings = {
 // Initialize the menu with the settings and activate the toggle functionality
 const menu = new CircleNavi(settings);
 menu.addEvent();
+```
+
+```npm
+npm install circle-navi
 ```
 
 ```ts
@@ -96,7 +104,11 @@ TypeScript プロジェクトなら直接 import、HTML ならビルド済みの
 <div class="circle"></div>
 ```
 
-## 3. 設定例・初期化
+## 🔗 デモ
+
+[GitHub Pages デモを見る](https://taikibansyo.github.io/circle-navi/)
+
+## 3. 設定例・初期化(javascript)
 
 ```javascript
 const settings = {
@@ -109,6 +121,12 @@ const settings = {
 
 const menu = new CircleNavi(settings);
 menu.addEvent();
+```
+
+## 3. 設定例・初期化(typescript)
+
+```npm
+npm install circle-navi
 ```
 
 ```ts
