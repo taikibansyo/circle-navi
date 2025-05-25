@@ -1,7 +1,7 @@
 {
   "name": "circle-navi",
   "version": "1.0.0",
-  "description": "A minimal navigation menu animation library",
+  "description": "Circle-style animated navigation indicator",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -16,7 +16,6 @@
     "README.md"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
   "repository": {
@@ -32,5 +31,8 @@
   "homepage": "https://github.com/taikibansyo/circle-navi#readme",
   "dependencies": {
     "typescript": "^5.0.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
