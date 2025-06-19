@@ -29,10 +29,10 @@
     "url": "https://github.com/taikibansyo/circle-navi/issues"
   },
   "homepage": "https://github.com/taikibansyo/circle-navi#readme",
-  "dependencies": {
-    "typescript": "^5.0.4"
-  },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }
