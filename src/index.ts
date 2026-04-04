@@ -1,4 +1,4 @@
-export { CircleNavi } from "./circleNavi/CircleNavi";
+export { CircleNavi } from "./circleNavi/CircleNavi.js";
 
 export type {
   Settings,
@@ -7,4 +7,4 @@ export type {
   MoveObjects,
   NextDirection,
   PrevDirection,
-} from "./types/circleNavi";
+} from "./types/circleNavi.js";

@@ -1,1 +1,1 @@
-export { CircleNavi } from "./circleNavi/CircleNavi";
+export { CircleNavi } from "./circleNavi/CircleNavi.js";
