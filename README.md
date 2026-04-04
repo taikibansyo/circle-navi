@@ -103,7 +103,7 @@ menu.addEvent();
 ## 注意点
 
 - ボタンには `data-index` 属性が必要です（0 から始まる連番）。
-- インジケータや背景の見た目は CSS 側で定義してください（`bg-color-0`、`bg-color-1`、`inview` など）。
+- インジケータや背景の見た目は CSS 側で定義してください（`bg-color-1`、`bg-color-2`、`inview` など）。
 
 ---
 
