@@ -5,7 +5,7 @@ import {
   MoveObjects,
   NextDirection,
   PrevDirection,
-} from "../types/circleNavi";
+} from "../types/circleNavi.js";
 
 const DEFAULT_ANIMATION_DELAY: number = 160;
 
@@ -15,12 +15,13 @@ class CircleNavi {
   circleInterval: number;
   previousIndex: number = 1;
   prevDirection: PrevDirection = "fromLeft";
+  private isAnimating = false;
 
   constructor(settings: Settings) {
     const btn = this._getElements(settings.btn);
     const target = this._getElement(settings.target);
     const bgArea = this._getElement(settings.bgArea);
-    if (!btn || !target || !bgArea)
+    if (!btn.length || !target || !bgArea)
       throw new Error(`必要なDOMが見つかりません。`);
     this.DOM = { btn, target, bgArea };
     this.circleDiameter = settings.diameter;
@@ -164,14 +165,15 @@ class CircleNavi {
   }
 
   private async _toggle(dataIndex: number) {
+    if (this.isAnimating) return;
+    this.isAnimating = true;
+
     const target = this.DOM.target;
     const bgArea = this.DOM.bgArea;
     const move: MoveObjects = {
       ids: new Set(),
     };
     const previousIndex = this.previousIndex;
-
-    console.log(`previousIndex: ${previousIndex}`);
     this._toggleClass(target, `bg-color-${previousIndex}`, "remove");
     this._toggleClass(target, `bg-color-${dataIndex}`, "toggle");
 
@@ -208,6 +210,7 @@ class CircleNavi {
     this._toggleClass(this.DOM.btn[dataIndex - 1], "inview", "add");
 
     this.previousIndex = dataIndex;
+    this.isAnimating = false;
   }
 
   addEvent() {

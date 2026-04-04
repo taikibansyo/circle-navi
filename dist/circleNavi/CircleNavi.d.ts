@@ -1,10 +1,11 @@
-import { Settings, Dom, PrevDirection } from "../types/circleNavi";
+import { Settings, Dom, PrevDirection } from "../types/circleNavi.js";
 declare class CircleNavi {
     DOM: Dom;
     circleDiameter: number;
     circleInterval: number;
     previousIndex: number;
     prevDirection: PrevDirection;
+    private isAnimating;
     constructor(settings: Settings);
     private _getElements;
     private _getElement;
