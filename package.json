@@ -23,7 +23,14 @@
     "type": "git",
     "url": "git+https://github.com/taikibansyo/circle-navi.git"
   },
-  "keywords": [],
+  "keywords": [
+    "navigation",
+    "animation",
+    "indicator",
+    "typescript",
+    "ui",
+    "menu"
+  ],
   "author": "taikibansyo",
   "license": "MIT",
   "bugs": {
