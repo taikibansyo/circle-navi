@@ -3,6 +3,32 @@
 CircleNavi は、インデックス形式のメニュー切り替え UI を簡単に実装できる TypeScript 製の軽量コンポーネントです。
 ボタンをクリックするとインジケータ（丸いマーカー）がスムーズに移動し、アクティブな項目をビジュアルで示します。外部ライブラリ不要で、個人サイトや小規模な Web プロジェクトにすぐ組み込めます。
 
+## English
+
+CircleNavi is a lightweight TypeScript component for index-based navigation UIs.
+When a button is clicked, the circular indicator moves smoothly and highlights the active item.
+It has zero runtime dependencies and is easy to integrate into portfolio sites, landing pages, and small web projects.
+
+### Quick Start
+
+```bash
+npm install circle-navi
+```
+
+```ts
+import { CircleNavi } from "circle-navi";
+
+const menu = new CircleNavi({
+  btn: ".navi__inner button",
+  target: ".circle",
+  bgArea: "body",
+  diameter: 40,
+  interval: 5,
+});
+
+menu.addEvent();
+```
+
 ## デモ
 
 [GitHub Pages デモを見る](https://taikibansyo.github.io/circle-navi/)
