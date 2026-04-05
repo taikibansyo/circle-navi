@@ -3,60 +3,341 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Document</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>circleNavi | インジケータが、なめらかに動く。</title>
+    <meta
+      name="description"
+      content="circleNavi は、依存なしで導入できる TypeScript 製の軽量ナビゲーションアニメーションライブラリです。"
+    />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body class="bg-color-1">
-    <div class="navi__wrap">
-      <div class="navi__inner">
-        <span class="circle bg-color-1"></span>
-        <button data-index="0" class="inview">
-          <span class="navi__btn">
-            <span class="navi__btn__text">01</span>
-          </span>
-        </button>
-        <button data-index="1">
-          <span class="navi__btn">
-            <span class="navi__btn__text">02</span>
-          </span>
-        </button>
-        <button data-index="2">
-          <span class="navi__btn">
-            <span class="navi__btn__text">03</span>
-          </span>
-        </button>
-        <button data-index="3">
-          <span class="navi__btn">
-            <span class="navi__btn__text">04</span>
-          </span>
-        </button>
-        <button data-index="4">
-          <span class="navi__btn">
-            <span class="navi__btn__text">05</span>
-          </span>
-        </button>
-      </div>
+    <div class="page-shell">
+      <header class="site-header" id="siteHeader">
+        <div class="header-inner">
+          <a class="logo" href="#top"><em>circle</em>Navi</a>
+          <nav class="header-nav">
+            <a href="#features">Features</a>
+            <a href="#quickstart">Quick Start</a>
+            <a href="#options">Options</a>
+            <a
+              class="button-link"
+              href="https://github.com/taikibansyo/circle-navi"
+              target="_blank"
+              rel="noopener"
+              >GitHub</a
+            >
+          </nav>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="hero-copy">
+            <div class="hero-badge">TypeScript · 依存ゼロ · MIT License</div>
+            <h1>
+              <span class="hero-title-line">インジケータが、</span>
+              <span class="hero-title-line">なめらかに動く。</span>
+            </h1>
+            <p>
+              `circleNavi` は、index ベースのナビゲーション切り替えを軽やかに演出する小さなライブラリです。
+              実際の挙動と同じ 5 色のテーマ切り替えを、このページ上でそのまま試せます。
+            </p>
+            <div class="hero-actions">
+              <a class="primary-button" href="#quickstart">使い方を見る</a>
+              <a
+                class="ghost-button"
+                href="https://www.npmjs.com/package/circle-navi"
+                target="_blank"
+                rel="noopener"
+                >npm を開く</a
+              >
+            </div>
+          </div>
+
+          <aside class="hero-demo">
+            <div class="hero-demo-label">
+              <span>Live Demo</span>
+              <span>body と indicator が同期</span>
+            </div>
+            <p class="hero-demo-lead">
+              実ライブラリでインジケータを動かし、`bg-color-*` の色指定もそのまま反映しています。
+            </p>
+            <p class="hero-demo-sub">
+              ボタンを押すと、アクティブ状態・インジケータ色・ページ全体のアクセントが切り替わります。
+            </p>
+            <p class="hero-demo-sub hero-demo-sub-mobile">タップで色と内容が切り替わります。</p>
+
+            <div class="demo-carousel" aria-live="polite">
+              <div class="demo-carousel-track" id="demoCarouselTrack">
+                <section class="demo-slide" data-slide-index="0">
+                  <div class="demo-slide-label">01 Theme Cyan</div>
+                  <h3>導入直後のベーステーマ</h3>
+                  <p>
+                    デフォルト状態です。`bg-color-1` が body と indicator に入り、最初の導線としてもっとも素直な見え方になります。
+                  </p>
+                  <div class="demo-meta">
+                    <div class="demo-meta-item">
+                      <strong>Class</strong>
+                      <span>bg-color-1</span>
+                    </div>
+                    <div class="demo-meta-item">
+                      <strong>Use Case</strong>
+                      <span>初期表示やメイン導線</span>
+                    </div>
+                  </div>
+                </section>
+                <section class="demo-slide" data-slide-index="1">
+                  <div class="demo-slide-label">02 Theme Yellow</div>
+                  <h3>注意喚起や切り替え強調に向く色</h3>
+                  <p>
+                    2 番目のタブでは視線を拾いやすい暖色寄りアクセントへ切り替わります。hover の予告色とも自然につながります。
+                  </p>
+                  <div class="demo-meta">
+                    <div class="demo-meta-item">
+                      <strong>Class</strong>
+                      <span>bg-color-2</span>
+                    </div>
+                    <div class="demo-meta-item">
+                      <strong>Use Case</strong>
+                      <span>注目セクションや導入訴求</span>
+                    </div>
+                  </div>
+                </section>
+                <section class="demo-slide" data-slide-index="2">
+                  <div class="demo-slide-label">03 Theme Pink</div>
+                  <h3>ブランド感を乗せやすいアクセント</h3>
+                  <p>
+                    3 番目は華やかさのある配色です。コンテンツの性格を切り替えたい場面で、背景変化の存在感がしっかり出ます。
+                  </p>
+                  <div class="demo-meta">
+                    <div class="demo-meta-item">
+                      <strong>Class</strong>
+                      <span>bg-color-3</span>
+                    </div>
+                    <div class="demo-meta-item">
+                      <strong>Use Case</strong>
+                      <span>特集やキャンペーン告知</span>
+                    </div>
+                  </div>
+                </section>
+                <section class="demo-slide" data-slide-index="3">
+                  <div class="demo-slide-label">04 Theme Green</div>
+                  <h3>安心感のある情報整理向け</h3>
+                  <p>
+                    4 番目は落ち着いたグリーンです。一覧や設定画面のように、整理された印象を保ちたい UI と相性が良い色です。
+                  </p>
+                  <div class="demo-meta">
+                    <div class="demo-meta-item">
+                      <strong>Class</strong>
+                      <span>bg-color-4</span>
+                    </div>
+                    <div class="demo-meta-item">
+                      <strong>Use Case</strong>
+                      <span>情報整理や完了状態の表現</span>
+                    </div>
+                  </div>
+                </section>
+                <section class="demo-slide" data-slide-index="4">
+                  <div class="demo-slide-label">05 Theme Indigo</div>
+                  <h3>締まりのあるクールなトーン</h3>
+                  <p>
+                    最後は深いインディゴです。複数テーマの中でもコントラストが出やすく、終端や別モード感を演出しやすくなります。
+                  </p>
+                  <div class="demo-meta">
+                    <div class="demo-meta-item">
+                      <strong>Class</strong>
+                      <span>bg-color-5</span>
+                    </div>
+                    <div class="demo-meta-item">
+                      <strong>Use Case</strong>
+                      <span>別カテゴリや締めの演出</span>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="navi__wrap">
+              <div class="navi__inner">
+                <span class="circle bg-color-1"></span>
+                <button data-index="0" class="inview" aria-label="Theme 01">
+                  <span class="navi__btn"><span class="navi__btn__text">01</span></span>
+                </button>
+                <button data-index="1" aria-label="Theme 02">
+                  <span class="navi__btn"><span class="navi__btn__text">02</span></span>
+                </button>
+                <button data-index="2" aria-label="Theme 03">
+                  <span class="navi__btn"><span class="navi__btn__text">03</span></span>
+                </button>
+                <button data-index="3" aria-label="Theme 04">
+                  <span class="navi__btn"><span class="navi__btn__text">04</span></span>
+                </button>
+                <button data-index="4" aria-label="Theme 05">
+                  <span class="navi__btn"><span class="navi__btn__text">05</span></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="install-box">
+              <code>npm install circle-navi</code>
+              <button class="copy-button" id="copyButton" type="button">コピー</button>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section" id="features">
+          <div class="section-panel">
+            <div class="section-head">
+              <p class="section-eyebrow">Features</p>
+              <h2>見た目は自由、動きはシンプル。</h2>
+              <p>
+                公開デモの配色ルールと同じ `bg-color-*` を前提にしているので、導入時の見た目合わせがしやすく、
+                既存 UI にもそのまま馴染ませやすい設計です。
+              </p>
+            </div>
+
+            <div class="feature-grid">
+              <article class="feature-card">
+                <div class="feature-index">01</div>
+                <h3>依存なしで動作</h3>
+                <p>
+                  フレームワークに縛られず、HTML と少量の初期化コードだけで導入できます。小さな導線 UI に向いた構成です。
+                </p>
+              </article>
+              <article class="feature-card">
+                <div class="feature-index">02</div>
+                <h3>背景色と同期できる</h3>
+                <p>
+                  インジケータだけでなく `bgArea` にもクラスが付くため、ページ全体やセクション単位の配色変化もまとめて扱えます。
+                </p>
+              </article>
+              <article class="feature-card">
+                <div class="feature-index">03</div>
+                <h3>CSS で仕上げやすい</h3>
+                <p>
+                  色、hover、active 表現は CSS 側で素直に調整できます。今回のページもそのルールでデモを構成しています。
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="quickstart">
+          <div class="section-panel">
+            <div class="section-head">
+              <p class="section-eyebrow">Quick Start</p>
+              <h2>セットアップは 3 ステップです。</h2>
+            </div>
+
+            <div class="quickstart-grid">
+              <article class="step-card">
+                <div class="step-head">
+                  <div class="step-number">1</div>
+                  <h3>インストール</h3>
+                </div>
+                <pre><code><span class="code-command">npm</span> <span class="code-command-sub">install</span> <span class="code-package">circle-navi</span></code></pre>
+              </article>
+
+              <article class="step-card">
+                <div class="step-head">
+                  <div class="step-number">2</div>
+                  <h3>HTML を用意</h3>
+                </div>
+                <pre><code><span class="code-punct">&lt;</span><span class="code-tag">div</span> <span class="code-attr">class</span><span class="code-punct">=</span><span class="code-string">"navi__inner"</span><span class="code-punct">&gt;</span>
+  <span class="code-punct">&lt;</span><span class="code-tag">span</span> <span class="code-attr">class</span><span class="code-punct">=</span><span class="code-string">"circle bg-color-1"</span><span class="code-punct">&gt;&lt;/</span><span class="code-tag">span</span><span class="code-punct">&gt;</span>
+  <span class="code-punct">&lt;</span><span class="code-tag">button</span> <span class="code-attr">data-index</span><span class="code-punct">=</span><span class="code-string">"0"</span> <span class="code-attr">class</span><span class="code-punct">=</span><span class="code-string">"inview"</span><span class="code-punct">&gt;</span>01<span class="code-punct">&lt;/</span><span class="code-tag">button</span><span class="code-punct">&gt;</span>
+  <span class="code-punct">&lt;</span><span class="code-tag">button</span> <span class="code-attr">data-index</span><span class="code-punct">=</span><span class="code-string">"1"</span><span class="code-punct">&gt;</span>02<span class="code-punct">&lt;/</span><span class="code-tag">button</span><span class="code-punct">&gt;</span>
+  <span class="code-punct">&lt;</span><span class="code-tag">button</span> <span class="code-attr">data-index</span><span class="code-punct">=</span><span class="code-string">"2"</span><span class="code-punct">&gt;</span>03<span class="code-punct">&lt;/</span><span class="code-tag">button</span><span class="code-punct">&gt;</span>
+<span class="code-punct">&lt;/</span><span class="code-tag">div</span><span class="code-punct">&gt;</span></code></pre>
+              </article>
+
+              <article class="step-card">
+                <div class="step-head">
+                  <div class="step-number">3</div>
+                  <h3>JavaScript で初期化</h3>
+                </div>
+                <pre><code><span class="code-keyword">import</span> { <span class="code-class">CircleNavi</span> } <span class="code-keyword">from</span> <span class="code-string">"circle-navi"</span><span class="code-punct">;</span>
+
+<span class="code-keyword">const</span> <span class="code-variable">menu</span> <span class="code-punct">=</span> <span class="code-keyword">new</span> <span class="code-class">CircleNavi</span><span class="code-punct">(</span><span class="code-punct">{</span>
+  <span class="code-property">btn</span><span class="code-punct">:</span> <span class="code-string">".navi__inner button"</span><span class="code-punct">,</span>
+  <span class="code-property">target</span><span class="code-punct">:</span> <span class="code-string">".circle"</span><span class="code-punct">,</span>
+  <span class="code-property">bgArea</span><span class="code-punct">:</span> <span class="code-string">"body"</span><span class="code-punct">,</span>
+  <span class="code-property">diameter</span><span class="code-punct">:</span> <span class="code-number">40</span><span class="code-punct">,</span>
+  <span class="code-property">interval</span><span class="code-punct">:</span> <span class="code-number">5</span><span class="code-punct">,</span>
+<span class="code-punct">}</span><span class="code-punct">)</span><span class="code-punct">;</span>
+
+<span class="code-variable">menu</span><span class="code-punct">.</span><span class="code-method">addEvent</span><span class="code-punct">(</span><span class="code-punct">)</span><span class="code-punct">;</span></code></pre>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="options">
+          <div class="options-panel">
+            <div class="section-head">
+              <p class="section-eyebrow">Options</p>
+              <h2>主要オプション</h2>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>btn</td>
+                  <td>string</td>
+                  <td>操作対象ボタンの CSS セレクタ。各ボタンに <code>data-index</code> が必要です。</td>
+                </tr>
+                <tr>
+                  <td>target</td>
+                  <td>string</td>
+                  <td>動かすインジケータ要素の CSS セレクタです。通常は <code>.circle</code> を指定します。</td>
+                </tr>
+                <tr>
+                  <td>bgArea</td>
+                  <td>string</td>
+                  <td>
+                    <code>bg-color-1</code> から <code>bg-color-n</code> を同期させたいエリアの CSS セレクタです。
+                  </td>
+                </tr>
+                <tr>
+                  <td>diameter</td>
+                  <td>number</td>
+                  <td>インジケータ直径です。このページでは <code>40</code> を使っています。</td>
+                </tr>
+                <tr>
+                  <td>interval</td>
+                  <td>number</td>
+                  <td>ボタン間のギャップ幅です。CSS の <code>gap</code> と同じ値に揃えると自然に見えます。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-panel">
+          <div class="footer-copy">circleNavi demo page for GitHub Pages.</div>
+          <div class="footer-links">
+            <a href="https://github.com/taikibansyo/circle-navi" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.npmjs.com/package/circle-navi" target="_blank" rel="noopener">npm</a>
+            <a href="https://taikibansyo.com/milliondesign/article/navigation-menu" target="_blank" rel="noopener"
+              >Article</a
+            >
+          </div>
+        </div>
+      </footer>
     </div>
-    <!-- Initialize CircleNavi -->
-    <script type="module">
-      import { CircleNavi } from "./index.js";
-      document.addEventListener("DOMContentLoaded", () => {
-        const settings = {
-          btn: ".navi__inner button",
-          target: ".circle",
-          bgArea: "body",
-          diameter: 40,
-          interval: 5,
-        };
-        try {
-          const menu = new CircleNavi(settings);
-          menu.addEvent();
-        }
-        catch (e) {
-          console.error(e);
-        }
-      });
-    </script>
+
+    <script type="module" src="./index.js"></script>
   </body>
 </html>
