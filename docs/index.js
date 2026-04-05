@@ -26,9 +26,12 @@ const initializeDemoPage = () => {
   const mobileMenuLinks = Array.from(document.querySelectorAll(".mobile-menu a"));
   const installCommand = "npm install circle-navi";
   const swipeThreshold = 56;
+  const dragIntentThreshold = 10;
   let activeIndex = 0;
+  let dragStartY = 0;
   let dragStartX = 0;
   let dragOffsetX = 0;
+  let isPointerDown = false;
   let isDragging = false;
 
   window.addEventListener(
@@ -81,13 +84,19 @@ const initializeDemoPage = () => {
     if (window.innerWidth > 640) {
       closeMobileMenu();
     }
+
+    updateCarousel(activeIndex);
   });
+
+  const getCarouselWidth = () => {
+    return carousel?.clientWidth || 1;
+  };
 
   const updateCarousel = (index) => {
     activeIndex = index;
 
     if (carouselTrack) {
-      carouselTrack.style.transform = `translateX(-${index * 100}%)`;
+      carouselTrack.style.transform = `translateX(${-index * getCarouselWidth()}px)`;
     }
   };
 
@@ -104,29 +113,72 @@ const initializeDemoPage = () => {
   };
 
   const beginDrag = (event) => {
-    if (!carouselTrack) {
+    if (!carouselTrack || !carousel) {
       return;
     }
 
-    isDragging = true;
+    isPointerDown = true;
+    isDragging = false;
     dragStartX = getClientX(event);
+    dragStartY = "touches" in event && event.touches.length > 0 ? event.touches[0].clientY : event.clientY;
     dragOffsetX = 0;
-    carouselTrack.classList.add("is-dragging");
   };
 
   const moveDrag = (event) => {
-    if (!isDragging || !carouselTrack || !carousel) {
+    if (!isPointerDown || !carouselTrack || !carousel) {
       return;
     }
 
-    dragOffsetX = getClientX(event) - dragStartX;
-    const width = carousel.clientWidth || 1;
+    const currentX = getClientX(event);
+    const currentY =
+      "touches" in event && event.touches.length > 0
+        ? event.touches[0].clientY
+        : "clientY" in event
+          ? event.clientY
+          : dragStartY;
+    const deltaX = currentX - dragStartX;
+    const deltaY = currentY - dragStartY;
+
+    if (!isDragging) {
+      if (Math.abs(deltaY) > dragIntentThreshold && Math.abs(deltaY) > Math.abs(deltaX)) {
+        isPointerDown = false;
+        dragOffsetX = 0;
+        updateCarousel(activeIndex);
+        return;
+      }
+
+      if (Math.abs(deltaX) < dragIntentThreshold || Math.abs(deltaX) <= Math.abs(deltaY)) {
+        return;
+      }
+
+      isDragging = true;
+      carouselTrack.classList.add("is-dragging");
+    }
+
+    if ("cancelable" in event && event.cancelable) {
+      event.preventDefault();
+    }
+
+    dragOffsetX = deltaX;
+    const width = getCarouselWidth();
     const translate = -activeIndex * width + dragOffsetX;
     carouselTrack.style.transform = `translateX(${translate}px)`;
   };
 
   const endDrag = () => {
-    if (!isDragging || !carouselTrack) {
+    if (!isPointerDown && !isDragging) {
+      return;
+    }
+
+    isPointerDown = false;
+
+    if (!carouselTrack) {
+      return;
+    }
+
+    if (!isDragging) {
+      dragOffsetX = 0;
+      updateCarousel(activeIndex);
       return;
     }
 
@@ -160,20 +212,39 @@ const initializeDemoPage = () => {
 
   updateCarousel(0);
 
-  carouselTrack?.addEventListener("pointerdown", beginDrag);
-  carouselTrack?.addEventListener("pointermove", moveDrag);
-  carouselTrack?.addEventListener("pointerup", endDrag);
-  carouselTrack?.addEventListener("pointercancel", endDrag);
-  carouselTrack?.addEventListener("lostpointercapture", endDrag);
-  carouselTrack?.addEventListener("touchstart", beginDrag, { passive: true });
-  carouselTrack?.addEventListener("touchmove", moveDrag, { passive: true });
-  carouselTrack?.addEventListener("touchend", endDrag);
-
-  carouselTrack?.addEventListener("pointerdown", (event) => {
-    if ("pointerId" in event) {
-      carouselTrack.setPointerCapture(event.pointerId);
+  const beginPointerDrag = (event) => {
+    if ("pointerType" in event && event.pointerType === "touch") {
+      return;
     }
-  });
+
+    beginDrag(event);
+  };
+
+  const movePointerDrag = (event) => {
+    if ("pointerType" in event && event.pointerType === "touch") {
+      return;
+    }
+
+    moveDrag(event);
+  };
+
+  const endPointerDrag = (event) => {
+    if ("pointerType" in event && event.pointerType === "touch") {
+      return;
+    }
+
+    endDrag();
+  };
+
+  carousel?.addEventListener("pointerdown", beginPointerDrag);
+  window.addEventListener("pointermove", movePointerDrag);
+  window.addEventListener("pointerup", endPointerDrag);
+  window.addEventListener("pointercancel", endPointerDrag);
+  window.addEventListener("lostpointercapture", endPointerDrag);
+  carousel?.addEventListener("touchstart", beginDrag, { passive: true });
+  window.addEventListener("touchmove", moveDrag, { passive: false });
+  window.addEventListener("touchend", endDrag);
+  window.addEventListener("touchcancel", endDrag);
 
   copyButton?.addEventListener("click", async () => {
     try {
