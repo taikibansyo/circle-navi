@@ -13,6 +13,13 @@
       content="circleNavi は、依存なしで導入できる TypeScript 製の軽量ナビゲーションアニメーションライブラリです。"
     />
     <link rel="stylesheet" href="./css/style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "circle-navi": "./vendor/circle-navi/index.js"
+        }
+      }
+    </script>
   </head>
   <body class="bg-color-1">
     <div class="page-shell">
@@ -20,32 +27,72 @@
         <div class="header-inner">
           <a class="logo" href="#top"><em>circle</em>Navi</a>
           <nav class="header-nav">
-            <a href="#features">Features</a>
-            <a href="#quickstart">Quick Start</a>
-            <a href="#options">Options</a>
+            <a href="#features">特長</a>
+            <a href="#quickstart">使い方</a>
+            <a href="#options">オプション</a>
             <a
-              class="button-link"
+              class="button-link header-star-badge"
               href="https://github.com/taikibansyo/circle-navi"
               target="_blank"
               rel="noopener"
-              >GitHub</a
+              aria-label="GitHub の star を確認する"
             >
+              <img
+                src="https://img.shields.io/github/stars/taikibansyo/circle-navi?style=for-the-badge&logo=github&label=GitHub%20Stars&color=0b1820"
+                alt="GitHub Stars"
+              />
+            </a>
           </nav>
+          <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobileMenu"
+            aria-label="メニューを開く"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu" hidden>
+          <a href="#features">特長</a>
+          <a href="#quickstart">使い方</a>
+          <a href="#options">オプション</a>
+          <a
+            class="mobile-menu-badge"
+            href="https://github.com/taikibansyo/circle-navi"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub の star を確認する"
+          >
+            <img
+              src="https://img.shields.io/github/stars/taikibansyo/circle-navi?style=for-the-badge&logo=github&label=GitHub%20Stars&color=0b1820"
+              alt="GitHub Stars"
+            />
+          </a>
         </div>
       </header>
 
       <main id="top">
         <section class="hero">
           <div class="hero-copy">
-            <div class="hero-badge">TypeScript · 依存ゼロ · MIT License</div>
+            <div class="hero-badges">
+              <div class="hero-badge">依存ゼロで、すぐ使える TypeScript ライブラリ</div>
+            </div>
             <h1>
               <span class="hero-title-line">インジケータが、</span>
               <span class="hero-title-line">なめらかに動く。</span>
             </h1>
             <p>
-              `circleNavi` は、index ベースのナビゲーション切り替えを軽やかに演出する小さなライブラリです。
+              <code>circleNavi</code> は、index ベースのナビゲーション切り替えを軽やかに演出する小さなライブラリです。
               実際の挙動と同じ 5 色のテーマ切り替えを、このページ上でそのまま試せます。
             </p>
+            <div class="install-box">
+              <code>npm install circle-navi</code>
+              <button class="copy-button" id="copyButton" type="button">コピー</button>
+            </div>
             <div class="hero-actions">
               <a class="primary-button" href="#quickstart">使い方を見る</a>
               <a
@@ -60,11 +107,10 @@
 
           <aside class="hero-demo">
             <div class="hero-demo-label">
-              <span>Live Demo</span>
-              <span>body と indicator が同期</span>
+              <span class="hero-demo-label-primary">Live Demo</span>
             </div>
             <p class="hero-demo-lead">
-              実ライブラリでインジケータを動かし、`bg-color-*` の色指定もそのまま反映しています。
+              <code>circleNavi</code> の動きと <code>bg-color-*</code> の色切り替えを試せます。
             </p>
             <p class="hero-demo-sub">
               ボタンを押すと、アクティブ状態・インジケータ色・ページ全体のアクセントが切り替わります。
@@ -77,13 +123,9 @@
                   <div class="demo-slide-label">01 Theme Cyan</div>
                   <h3>導入直後のベーステーマ</h3>
                   <p>
-                    デフォルト状態です。`bg-color-1` が body と indicator に入り、最初の導線としてもっとも素直な見え方になります。
+                    デフォルト状態です。<code>bg-color-1</code> が body と indicator に入り、最初の導線としてもっとも素直な見え方になります。
                   </p>
                   <div class="demo-meta">
-                    <div class="demo-meta-item">
-                      <strong>Class</strong>
-                      <span>bg-color-1</span>
-                    </div>
                     <div class="demo-meta-item">
                       <strong>Use Case</strong>
                       <span>初期表示やメイン導線</span>
@@ -98,10 +140,6 @@
                   </p>
                   <div class="demo-meta">
                     <div class="demo-meta-item">
-                      <strong>Class</strong>
-                      <span>bg-color-2</span>
-                    </div>
-                    <div class="demo-meta-item">
                       <strong>Use Case</strong>
                       <span>注目セクションや導入訴求</span>
                     </div>
@@ -114,10 +152,6 @@
                     3 番目は華やかさのある配色です。コンテンツの性格を切り替えたい場面で、背景変化の存在感がしっかり出ます。
                   </p>
                   <div class="demo-meta">
-                    <div class="demo-meta-item">
-                      <strong>Class</strong>
-                      <span>bg-color-3</span>
-                    </div>
                     <div class="demo-meta-item">
                       <strong>Use Case</strong>
                       <span>特集やキャンペーン告知</span>
@@ -132,10 +166,6 @@
                   </p>
                   <div class="demo-meta">
                     <div class="demo-meta-item">
-                      <strong>Class</strong>
-                      <span>bg-color-4</span>
-                    </div>
-                    <div class="demo-meta-item">
                       <strong>Use Case</strong>
                       <span>情報整理や完了状態の表現</span>
                     </div>
@@ -148,10 +178,6 @@
                     最後は深いインディゴです。複数テーマの中でもコントラストが出やすく、終端や別モード感を演出しやすくなります。
                   </p>
                   <div class="demo-meta">
-                    <div class="demo-meta-item">
-                      <strong>Class</strong>
-                      <span>bg-color-5</span>
-                    </div>
                     <div class="demo-meta-item">
                       <strong>Use Case</strong>
                       <span>別カテゴリや締めの演出</span>
@@ -181,11 +207,6 @@
                 </button>
               </div>
             </div>
-
-            <div class="install-box">
-              <code>npm install circle-navi</code>
-              <button class="copy-button" id="copyButton" type="button">コピー</button>
-            </div>
           </aside>
         </section>
 
@@ -195,7 +216,7 @@
               <p class="section-eyebrow">Features</p>
               <h2>見た目は自由、動きはシンプル。</h2>
               <p>
-                公開デモの配色ルールと同じ `bg-color-*` を前提にしているので、導入時の見た目合わせがしやすく、
+                公開デモの配色ルールと同じ <code>bg-color-*</code> を前提にしているので、導入時の見た目合わせがしやすく、
                 既存 UI にもそのまま馴染ませやすい設計です。
               </p>
             </div>
@@ -305,7 +326,7 @@
                   <td>bgArea</td>
                   <td>string</td>
                   <td>
-                    <code>bg-color-1</code> から <code>bg-color-n</code> を同期させたいエリアの CSS セレクタです。
+                    ボタン切り替えに合わせて、指定した要素へ <code>bg-color-1</code> から <code>bg-color-n</code> のクラスを付け替えるための CSS セレクタです。
                   </td>
                 </tr>
                 <tr>
@@ -326,7 +347,7 @@
 
       <footer class="footer">
         <div class="footer-panel">
-          <div class="footer-copy">circleNavi demo page for GitHub Pages.</div>
+          <div class="footer-copy">MIT License · taikibansyo</div>
           <div class="footer-links">
             <a href="https://github.com/taikibansyo/circle-navi" target="_blank" rel="noopener">GitHub</a>
             <a href="https://www.npmjs.com/package/circle-navi" target="_blank" rel="noopener">npm</a>

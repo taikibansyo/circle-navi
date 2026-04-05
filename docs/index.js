@@ -1,191 +1,4 @@
-const DEFAULT_ANIMATION_DELAY = 160;
-
-class CircleNavi {
-  constructor(settings) {
-    this.previousIndex = 1;
-    this.prevDirection = "fromLeft";
-    this.isAnimating = false;
-
-    const btn = this._getElements(settings.btn);
-    const target = this._getElement(settings.target);
-    const bgArea = this._getElement(settings.bgArea);
-
-    if (!btn.length || !target || !bgArea) {
-      throw new Error("必要なDOMが見つかりません。");
-    }
-
-    this.DOM = { btn, target, bgArea };
-    this.circleDiameter = settings.diameter;
-    this.circleInterval = settings.interval;
-  }
-
-  _getElements(targetElement) {
-    return document.querySelectorAll(targetElement);
-  }
-
-  _getElement(targetElement) {
-    return document.querySelector(targetElement);
-  }
-
-  _setMoveX(direction, index, isPrev) {
-    isPrev ? (direction = -direction) : (direction = direction);
-
-    return direction > 0
-      ? (this.DOM.btn.length - index) * (this.circleDiameter + this.circleInterval) + this.circleInterval
-      : (index - 1) * (this.circleDiameter + this.circleInterval) + this.circleInterval;
-  }
-
-  _setStyleWidth(direction, index, previousIndex) {
-    return direction > 0
-      ? (index - previousIndex) * (this.circleDiameter + this.circleInterval) + this.circleDiameter
-      : (previousIndex - index) * (this.circleDiameter + this.circleInterval) + this.circleDiameter;
-  }
-
-  _setValueAsync(target, styles) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        ["right", "left", "width"].forEach((key) => {
-          const value = styles[key];
-
-          if (typeof value === "string") {
-            target.style[key] = value;
-          }
-        });
-
-        resolve();
-      }, styles.delay ?? 0);
-    });
-  }
-
-  _toggleClass(element, className, action) {
-    switch (action) {
-      case "add":
-        element.classList.add(className);
-        break;
-      case "remove":
-        element.classList.remove(className);
-        break;
-      case "removeAll":
-        element.classList.remove(...element.classList);
-        break;
-      case "toggle":
-        element.classList.toggle(className);
-        break;
-      default:
-        console.warn(`Invalid action: ${action}`);
-    }
-  }
-
-  _animateIndicatorToRight(move, target) {
-    if (this.prevDirection === "fromLeft") {
-      move.ids.add(
-        this._setValueAsync(target, {
-          right: "auto",
-          left: `${move.switch}px`,
-        })
-      );
-    }
-
-    move.ids.add(
-      this._setValueAsync(target, {
-        width: `${move.width}px`,
-      })
-    );
-
-    move.ids.add(
-      this._setValueAsync(target, {
-        right: `${move.after}px`,
-        left: "auto",
-        width: `${this.circleDiameter}px`,
-        delay: DEFAULT_ANIMATION_DELAY,
-      })
-    );
-
-    this.prevDirection = "fromLeft";
-  }
-
-  _animateIndicatorToLeft(move, target) {
-    if (this.prevDirection === "fromRight") {
-      move.ids.add(
-        this._setValueAsync(target, {
-          right: `${move.switch}px`,
-          left: "auto",
-        })
-      );
-    }
-
-    move.ids.add(
-      this._setValueAsync(target, {
-        width: `${move.width}px`,
-      })
-    );
-
-    move.ids.add(
-      this._setValueAsync(target, {
-        right: "auto",
-        left: `${move.after}px`,
-        width: `${this.circleDiameter}px`,
-        delay: DEFAULT_ANIMATION_DELAY,
-      })
-    );
-
-    this.prevDirection = "fromRight";
-  }
-
-  async _toggle(dataIndex) {
-    if (this.isAnimating) {
-      return;
-    }
-
-    this.isAnimating = true;
-
-    const target = this.DOM.target;
-    const bgArea = this.DOM.bgArea;
-    const move = {
-      ids: new Set(),
-    };
-    const previousIndex = this.previousIndex;
-
-    this._toggleClass(target, `bg-color-${previousIndex}`, "remove");
-    this._toggleClass(target, `bg-color-${dataIndex}`, "toggle");
-    this._toggleClass(bgArea, `bg-color-${previousIndex}`, "remove");
-    this._toggleClass(bgArea, `bg-color-${dataIndex}`, "toggle");
-
-    move.direction = dataIndex - previousIndex;
-    move.after = this._setMoveX(move.direction, dataIndex);
-    move.switch = this._setMoveX(move.direction, previousIndex, "prev");
-    move.width = this._setStyleWidth(move.direction, dataIndex, previousIndex);
-
-    const nextDirection = move.direction > 0 ? "toRight" : "toLeft";
-
-    if (nextDirection === "toRight") {
-      this._animateIndicatorToRight(move, target);
-    } else if (nextDirection === "toLeft") {
-      this._animateIndicatorToLeft(move, target);
-    }
-
-    await Promise.all(move.ids);
-
-    this.DOM.btn.forEach((btn) => {
-      this._toggleClass(btn, "inview", "remove");
-    });
-
-    this._toggleClass(this.DOM.btn[dataIndex - 1], "inview", "add");
-    this.previousIndex = dataIndex;
-    this.isAnimating = false;
-  }
-
-  addEvent() {
-    this.DOM.btn.forEach((button) => {
-      const dataIndex = button.getAttribute("data-index");
-
-      if (dataIndex !== null) {
-        const setDataIndex = Number.parseInt(dataIndex, 10) + 1;
-        button.addEventListener("click", this._toggle.bind(this, setDataIndex));
-      }
-    });
-  }
-}
+import { CircleNavi } from "circle-navi";
 
 const initializeDemoPage = () => {
   const settings = {
@@ -204,10 +17,13 @@ const initializeDemoPage = () => {
   }
 
   const header = document.getElementById("siteHeader");
+  const menuToggle = document.getElementById("menuToggle");
+  const mobileMenu = document.getElementById("mobileMenu");
   const copyButton = document.getElementById("copyButton");
   const carousel = document.querySelector(".demo-carousel");
   const carouselTrack = document.getElementById("demoCarouselTrack");
   const navButtons = Array.from(document.querySelectorAll(".navi__inner button[data-index]"));
+  const mobileMenuLinks = Array.from(document.querySelectorAll(".mobile-menu a"));
   const installCommand = "npm install circle-navi";
   const swipeThreshold = 56;
   let activeIndex = 0;
@@ -222,6 +38,50 @@ const initializeDemoPage = () => {
     },
     { passive: true }
   );
+
+  const closeMobileMenu = () => {
+    if (!menuToggle || !mobileMenu) {
+      return;
+    }
+
+    menuToggle.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    mobileMenu.hidden = true;
+    mobileMenu.classList.remove("is-open");
+  };
+
+  const openMobileMenu = () => {
+    if (!menuToggle || !mobileMenu) {
+      return;
+    }
+
+    menuToggle.classList.add("is-open");
+    menuToggle.setAttribute("aria-expanded", "true");
+    mobileMenu.hidden = false;
+    mobileMenu.classList.add("is-open");
+  };
+
+  menuToggle?.addEventListener("click", () => {
+    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  mobileMenuLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      closeMobileMenu();
+    });
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 640) {
+      closeMobileMenu();
+    }
+  });
 
   const updateCarousel = (index) => {
     activeIndex = index;
@@ -340,5 +200,3 @@ const initializeDemoPage = () => {
 if (typeof document !== "undefined") {
   document.addEventListener("DOMContentLoaded", initializeDemoPage);
 }
-
-export { CircleNavi };

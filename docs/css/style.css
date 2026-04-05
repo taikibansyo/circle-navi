@@ -154,6 +154,49 @@ pre {
   flex-wrap: wrap;
 }
 
+.menu-toggle {
+  display: none;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.menu-toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-menu {
+  display: none;
+}
+
 .header-nav a {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.78);
@@ -179,6 +222,19 @@ pre {
   border-color: rgba(var(--accent-rgb), 0.72);
   color: #fff;
   background: rgba(var(--accent-rgb), 0.16);
+}
+
+.header-star-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  line-height: 0;
+}
+
+.header-star-badge img {
+  display: block;
+  height: 28px;
+  border-radius: 999px;
 }
 
 main {
@@ -214,6 +270,13 @@ main {
 .hero-copy {
   border-radius: 36px;
   padding: 40px;
+}
+
+.hero-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .hero-badge {
@@ -252,6 +315,14 @@ main {
   max-width: 34rem;
   color: var(--text-muted);
   font-size: 1rem;
+}
+
+.hero-copy p code,
+.hero-demo p code,
+.section-head p code {
+  background: rgba(var(--accent-rgb), 0.14);
+  color: #fff;
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
 }
 
 .hero-actions {
@@ -318,6 +389,24 @@ main {
   color: rgba(255, 255, 255, 0.72);
   font-size: 0.82rem;
   letter-spacing: 0.08em;
+}
+
+.hero-demo-label-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), 0.18);
+  border: 1px solid rgba(var(--accent-rgb), 0.28);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-demo-label-secondary {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.78rem;
 }
 
 .hero-demo-lead {
@@ -392,12 +481,11 @@ main {
 
 .demo-meta {
   margin-top: 16px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  display: block;
 }
 
 .demo-meta-item {
+  display: block;
   padding: 12px 14px;
   border-radius: 16px;
   background: rgba(0, 0, 0, 0.22);
@@ -552,6 +640,7 @@ main {
   justify-content: space-between;
   gap: 10px;
   padding: 14px;
+  margin-top: 28px;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -882,6 +971,53 @@ td:nth-child(2) {
     padding: 20px;
   }
 
+  .header-nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .mobile-menu {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 18px 18px;
+  }
+
+  .mobile-menu.is-open {
+    display: grid;
+    gap: 10px;
+  }
+
+  .mobile-menu a {
+    display: block;
+    padding: 14px 16px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .mobile-menu a:last-child {
+    border-color: rgba(var(--accent-rgb), 0.24);
+    background: rgba(var(--accent-rgb), 0.1);
+  }
+
+  .mobile-menu-badge {
+    display: flex;
+    justify-content: center;
+    line-height: 0;
+  }
+
+  .mobile-menu-badge img {
+    display: block;
+    max-width: 100%;
+    height: 28px;
+    border-radius: 999px;
+  }
+
   .header-nav a:not(.button-link) {
     display: none;
   }
@@ -902,6 +1038,10 @@ td:nth-child(2) {
     margin-right: auto;
   }
 
+  .hero-badges {
+    justify-content: center;
+  }
+
   .hero-demo {
     order: -1;
   }
@@ -913,6 +1053,10 @@ td:nth-child(2) {
   .hero-demo-lead {
     font-size: 1.02rem;
     line-height: 1.45;
+  }
+
+  .hero-demo-label {
+    justify-content: flex-start;
   }
 
   .hero-demo-sub {
@@ -940,8 +1084,8 @@ td:nth-child(2) {
     text-align: center;
   }
 
-  .demo-meta {
-    grid-template-columns: 1fr;
+  .install-box {
+    display: none;
   }
 
   .install-box {
