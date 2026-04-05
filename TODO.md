@@ -12,10 +12,10 @@ circleNavi を、まずは「ポートフォリオ資産として最小コスト
 
 ### 1. ポートフォリオ資産としての完成度を上げる
 
-- `package.json` の `keywords` を追加する
-- README に英語セクションを追加する
-- `CHANGELOG.md` を作成し、公開バージョンの履歴を明示する
-- GitHub Topics を設定し、ライブラリの内容が伝わる状態にする
+- done: `package.json` の `keywords` を追加する
+- done: README に英語セクションを追加する
+- done: `CHANGELOG.md` を作成し、公開バージョンの履歴を明示する
+- done: GitHub Topics を設定し、ライブラリの内容が伝わる状態にする
 
 ### 2. 最低限の品質保証を整える
 
